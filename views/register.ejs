@@ -1,0 +1,17 @@
+<%- include('./partials/header') %>
+    <div class="container">
+        <form action="" class="g-3 mt-4 needs-validation" novalidate>
+            <div class="col-6 offset-3">
+                <div class="row mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input class="form-control" type="text" name="username" id="username" placeholder="username" required>
+                </div>
+                <div class="row mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" id="password" placeholder="password" required>
+                </div>
+                <button type="submit" class="btn btn-success">Sign up</button>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/footer') %>
