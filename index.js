@@ -30,6 +30,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'secretsecretsecret' }));
 
+const requireLogin = (req, res, next) => {
+    if (!req.session.user_id) {
+        return res.redirect('/login')
+    }
+    next()
+}
+
 app.get('/', (req, res) => {
     res.render('home')
 })
@@ -76,10 +83,7 @@ app.post('/logout', (req, res) => {
     res.redirect('/login');
 })
 
-app.get('/user', (req, res) => {
-    if (!req.session.user_id) {
-        res.redirect('/login')
-    }
+app.get('/user', requireLogin, (req, res) => {
     res.render('users', { users })
 })
 
