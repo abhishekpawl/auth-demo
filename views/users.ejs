@@ -1,0 +1,30 @@
+<%- include('./partials/header') %>
+    <div class="container">
+        <% for(let user of users) { %>
+            <div class="row mt-3">
+                <div class="col-6 offset-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= user.name %>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                <%= user.profile %>
+                            </h6>
+                            <p class="card-text">
+                                <%= user.email %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+                <div class="row mt-3">
+                    <div class="col-6 offset-3">
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="btn btn-danger">Log out</button>
+                        </form>
+                    </div>
+                </div>
+    </div>
+    <%- include('./partials/footer') %>

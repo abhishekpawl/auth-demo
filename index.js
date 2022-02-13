@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
+const users = require('./users');
 
 dotenv.config();
 
@@ -26,6 +28,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'secretsecretsecret' }));
 
 app.get('/', (req, res) => {
     res.send('Home page')
@@ -43,6 +46,8 @@ app.post('/register', async(req, res) => {
         password: hashedPassword
     })
     await user.save();
+    // storing user id on successful registration
+    req.session.user_id = user._id;
     res.redirect('/');
 })
 
@@ -58,17 +63,24 @@ app.post('/login', async(req, res) => {
     }
     const isUser = await bcrypt.compare(password, user.password);
     if (isUser) {
-        res.send('Logged in!')
+        // storing user id on successful login
+        req.session.user_id = user._id;
+        res.redirect('/user')
     } else {
-        return res.send('Incorrect username or password!')
+        res.redirect('/login')
     }
 })
 
+app.post('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
+})
+
 app.get('/user', (req, res) => {
-    res.json([{
-        "name": "Abhishek Paul",
-        "email": "abhishek.paulcp.dbs@gmail.com"
-    }])
+    if (!req.session.user_id) {
+        res.redirect('/login')
+    }
+    res.render('users', { users })
 })
 
 app.listen(port, () => {
