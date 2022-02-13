@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'secretsecretsecret' }));
 
 app.get('/', (req, res) => {
-    res.send('Home page')
+    res.render('home')
 })
 
 app.get('/register', (req, res) => {

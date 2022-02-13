@@ -1,0 +1,21 @@
+<%- include('./partials/header') %>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-6 offset-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User Service</h5>
+                        <p class="card-text">This is a demo of user authentication using session. Once the user registers or logs in, the _id (mongo collection id) is stored in the session header. And, as the user logs out the session can be modified as to not have the user
+                            id or just by destroying the session.</p>
+                        <p>
+                            <a href="./user" class="btn btn-success">user-service</a>
+                        </p>
+                        <p>
+                            <a href="/register" class="btn btn-secondary">Sign up</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./partials/footer') %>
