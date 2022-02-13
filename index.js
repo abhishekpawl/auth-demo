@@ -38,7 +38,11 @@ const requireLogin = (req, res, next) => {
 }
 
 app.get('/', (req, res) => {
-    res.render('home')
+    var status = false;
+    if (req.session.user_id) {
+        status = true;
+    }
+    res.render('home', { status })
 })
 
 app.get('/register', (req, res) => {
@@ -47,10 +51,9 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async(req, res) => {
     const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 12);
     const user = new User({
         username,
-        password: hashedPassword
+        password
     })
     await user.save();
     // storing user id on successful registration

@@ -10,9 +10,11 @@
                         <p>
                             <a href="./user" class="btn btn-success">user-service</a>
                         </p>
-                        <p>
-                            <a href="/register" class="btn btn-secondary">Sign up</a>
-                        </p>
+                        <% if(!status) { %>
+                            <p>
+                                <a href="/register" class="btn btn-primary">Sign up</a>
+                            </p>
+                            <% } %>
                     </div>
                 </div>
             </div>
